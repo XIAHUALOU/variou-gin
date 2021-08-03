@@ -1,8 +1,8 @@
 package Configuration
 
 import (
+	"github.com/XIAHUALOU/variou-gin/tests/internal/Services"
 	"github.com/jinzhu/gorm"
-	"github.com/variou/variou-gin/tests/internal/Services"
 	"log"
 	"time"
 )

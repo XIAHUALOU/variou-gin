@@ -3,8 +3,8 @@ package core
 import (
 	"database/sql"
 	"fmt"
+	Injector "github.com/XIAHUALOU/variou-gin/ioc"
 	"github.com/gin-gonic/gin"
-	Injector "github.com/variou/variou-gin/ioc"
 	"reflect"
 	"strconv"
 )

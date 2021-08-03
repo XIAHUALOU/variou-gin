@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/XIAHUALOU/variou-gin/core"
+	"github.com/XIAHUALOU/variou-gin/tests/internal/Configuration"
+	"github.com/XIAHUALOU/variou-gin/tests/internal/classes"
+	"github.com/XIAHUALOU/variou-gin/tests/internal/fairing"
 	"github.com/gin-gonic/gin"
-	"github.com/variou/variou-gin/core"
-	"github.com/variou/variou-gin/tests/internal/Configuration"
-	"github.com/variou/variou-gin/tests/internal/classes"
-	"github.com/variou/variou-gin/tests/internal/fairing"
 	"net/http"
 )
 

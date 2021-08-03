@@ -1,8 +1,8 @@
 package Configuration
 
 import (
-	"github.com/variou/variou-gin/core"
-	"github.com/variou/variou-gin/tests/internal/classes"
+	"github.com/XIAHUALOU/variou-gin/core"
+	"github.com/XIAHUALOU/variou-gin/tests/internal/classes"
 )
 
 type RouterConfig struct {

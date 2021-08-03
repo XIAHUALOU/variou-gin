@@ -1,8 +1,8 @@
 package expr
 
 import (
+	"github.com/XIAHUALOU/variou-gin/expr/src/BeanExprLib"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"github.com/variou/variou-gin/expr/src/BeanExprLib"
 	"log"
 	"reflect"
 	"strings"

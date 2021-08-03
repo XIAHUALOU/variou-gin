@@ -2,10 +2,10 @@ package classes
 
 import (
 	"fmt"
+	"github.com/XIAHUALOU/variou-gin/core"
+	"github.com/XIAHUALOU/variou-gin/tests/internal/Services"
+	"github.com/XIAHUALOU/variou-gin/tests/internal/fairing"
 	"github.com/gin-gonic/gin"
-	"github.com/variou/variou-gin/core"
-	"github.com/variou/variou-gin/tests/internal/Services"
-	"github.com/variou/variou-gin/tests/internal/fairing"
 )
 
 type MyError struct {

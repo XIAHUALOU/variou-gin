@@ -2,7 +2,7 @@ package core
 
 import (
 	"fmt"
-	"github.com/variou/variou-gin/ioc"
+	"github.com/XIAHUALOU/variou-gin/ioc"
 	"reflect"
 	"strings"
 )

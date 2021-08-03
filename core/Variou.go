@@ -2,8 +2,8 @@ package core
 
 import (
 	"fmt"
+	"github.com/XIAHUALOU/variou-gin/ioc"
 	"github.com/gin-gonic/gin"
-	"github.com/variou/variou-gin/ioc"
 	"log"
 	"reflect"
 	"strings"

@@ -1,4 +1,4 @@
-module github.com/variou/variou-gin
+module github.com/XIAHUALOU/variou-gin
 
 go 1.14
 
