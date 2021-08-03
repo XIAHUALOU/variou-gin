@@ -28,7 +28,7 @@ func (self *ExampleController) ExampleJsonName(ctx *gin.Context) interface{} {
 	}{"example name"}
 }
 
-func (self *ExampleController) Build(ge *src.GE) { //bind gin.handler and route
+func (self *ExampleController) Build(ge *src.Variou) { //bind gin.handler and route
 	ge.Handle("GET", "/exam_name", self.ExampleJsonName)
 	ge.Handle("GET", "/exam_test", self.ExampleStringTest)
 }
@@ -50,7 +50,7 @@ func (self *Example2Controller) Example2JsonName(ctx *gin.Context) interface{} {
 	return struct{ name string }{"example2 name"}
 }
 
-func (self *Example2Controller) Build(ge *src.GE) { //bind gin.handler and route
+func (self *Example2Controller) Build(ge *src.Variou) { //bind gin.handler and route
 	ge.Handle("GET", "/exam2_name", self.Example2JsonName)
 	ge.Handle("GET", "/exam2_test", self.Example2StringTest)
 }
@@ -69,6 +69,6 @@ func (self *ExampleUseTaskController) ExampleUseTaskView(ctx *gin.Context) strin
 	return "ok"
 }
 
-func (self *ExampleUseTaskController) Build(ge *src.GE) {
+func (self *ExampleUseTaskController) Build(ge *src.Variou) {
 	ge.Handle("GET", "/ExampleUseTask", self.ExampleUseTaskView)
 }
