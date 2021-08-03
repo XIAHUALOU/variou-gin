@@ -13,13 +13,13 @@ type MyConfig struct {
 func NewMyConfig() *MyConfig {
 	return &MyConfig{}
 }
-func (this *MyConfig) Test() *Services.TestService {
+func (self *MyConfig) Test() *Services.TestService {
 	return Services.NewTestService("mytest")
 }
-func (this *MyConfig) Naming() *Services.NameService {
+func (self *MyConfig) Naming() *Services.NameService {
 	return Services.NewNameService("variou")
 }
-func (this *MyConfig) GormDB() *gorm.DB {
+func (self *MyConfig) GormDB() *gorm.DB {
 	db, err := gorm.Open("mysql",
 		"root:123123@tcp(localhost:3307)/test?charset=utf8mb4&parseTime=True&loc=Local")
 	if err != nil {

@@ -72,17 +72,17 @@ type BeanExprParser struct {
 }
 
 func NewBeanExprParser(input antlr.TokenStream) *BeanExprParser {
-	this := new(BeanExprParser)
+	self := new(BeanExprParser)
 
-	this.BaseParser = antlr.NewBaseParser(input)
+	self.BaseParser = antlr.NewBaseParser(input)
 
-	this.Interpreter = antlr.NewParserATNSimulator(this, deserializedATN, decisionToDFA, antlr.NewPredictionContextCache())
-	this.RuleNames = ruleNames
-	this.LiteralNames = literalNames
-	this.SymbolicNames = symbolicNames
-	this.GrammarFileName = "BeanExpr.g4"
+	self.Interpreter = antlr.NewParserATNSimulator(self, deserializedATN, decisionToDFA, antlr.NewPredictionContextCache())
+	self.RuleNames = ruleNames
+	self.LiteralNames = literalNames
+	self.SymbolicNames = symbolicNames
+	self.GrammarFileName = "BeanExpr.g4"
 
-	return this
+	return self
 }
 
 // BeanExprParser tokens.

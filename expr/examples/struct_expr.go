@@ -9,8 +9,8 @@ type UserRole struct {
 	RoleName string
 }
 
-func (this *UserRole) GetRole(prefix string) string {
-	return prefix + ":" + this.RoleName
+func (self *UserRole) GetRole(prefix string) string {
+	return prefix + ":" + self.RoleName
 }
 
 type User struct {
@@ -18,8 +18,8 @@ type User struct {
 	Role *UserRole
 }
 
-func (this *User) GetName() string {
-	return this.Name
+func (self *User) GetName() string {
+	return self.Name
 }
 
 //初始化用户实体

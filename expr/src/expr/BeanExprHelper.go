@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func getValueByTokenType(t int, text string, this *beanExprListener) reflect.Value {
+func getValueByTokenType(t int, text string, self *beanExprListener) reflect.Value {
 	var value reflect.Value
 	switch t {
 	case BeanExprLib.BeanExprLexerStringArg:
@@ -39,7 +39,7 @@ func getValueByTokenType(t int, text string, this *beanExprListener) reflect.Val
 		value = reflect.ValueOf(nil)
 		break
 	case BeanExprLib.BeanExprLexerFuncName | BeanExprLib.BeanExprLexerMethodName: //代表是函数
-		get_ret := BeanExpr(text, this.exprMap)
+		get_ret := BeanExpr(text, self.exprMap)
 		if get_ret.IsEmpty() {
 			value = reflect.ValueOf(nil)
 		} else {

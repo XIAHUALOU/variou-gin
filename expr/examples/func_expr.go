@@ -8,13 +8,13 @@ import (
 
 type TestReulst struct{}
 
-func (this *TestReulst) Name() string {
+func (self *TestReulst) Name() string {
 	return "test-result"
 }
 func funcExpr() {
 	exprMap := map[string]interface{}{
 		"test": func(name string, age int64) (string, int) {
-			log.Println("this is ", name, " and  age is :", age)
+			log.Println("self is ", name, " and  age is :", age)
 			return "variou", 19
 		},
 		"test2": func(str string) string {

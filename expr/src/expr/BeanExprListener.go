@@ -23,11 +23,11 @@ type ResultSet []interface{}
 func newResultSet() ResultSet {
 	return make(ResultSet, 0)
 }
-func (this ResultSet) IsEmpty() bool {
-	return len(this) == 0
+func (self ResultSet) IsEmpty() bool {
+	return len(self) == 0
 }
-func (this ResultSet) Len() int {
-	return len(this)
+func (self ResultSet) Len() int {
+	return len(self)
 }
 func result(values []reflect.Value) ResultSet {
 	ret := newResultSet()
@@ -49,27 +49,27 @@ type beanExprListener struct {
 	exprMap    map[string]interface{}
 }
 
-func (this *beanExprListener) ExitMethodCall(ctx *BeanExprLib.MethodCallContext) {
-	this.execType = 1
-	this.methodName = ctx.GetStart().GetText()
+func (self *beanExprListener) ExitMethodCall(ctx *BeanExprLib.MethodCallContext) {
+	self.execType = 1
+	self.methodName = ctx.GetStart().GetText()
 
 }
-func (this *beanExprListener) ExitFuncCall(ctx *BeanExprLib.FuncCallContext) {
-	this.funcName = ctx.GetStart().GetText()
+func (self *beanExprListener) ExitFuncCall(ctx *BeanExprLib.FuncCallContext) {
+	self.funcName = ctx.GetStart().GetText()
 }
-func (this *beanExprListener) ExitFuncArgs(ctx *BeanExprLib.FuncArgsContext) {
+func (self *beanExprListener) ExitFuncArgs(ctx *BeanExprLib.FuncArgsContext) {
 	for i := 0; i < ctx.GetChildCount(); i++ {
 		if token, ok := ctx.GetChild(i).GetPayload().(*antlr.BaseParserRuleContext); ok {
-			value := getValueByTokenType(token.GetStart().GetTokenType(), token.GetText(), this)
+			value := getValueByTokenType(token.GetStart().GetTokenType(), token.GetText(), self)
 			if value.IsValid() {
-				this.args = append(this.args, value)
+				self.args = append(self.args, value)
 			}
 		}
 		//a:=ctx.GetChild(i).GetPayload().(*antlr.BaseParserRuleContext)
 		//
 		//value:=getValueByTokenType(token.GetTokenType(),token.GetText())
 		//if value.IsValid(){
-		//	this.args = append(this.args, value)
+		//	self.args = append(self.args, value)
 		//}
 		//if a,ok:=ctx.GetChild(i).GetPayload().(*antlr.CommonToken);ok{
 		//	log.Println("111",a.GetText())
@@ -80,7 +80,7 @@ func (this *beanExprListener) ExitFuncArgs(ctx *BeanExprLib.FuncArgsContext) {
 	}
 
 }
-func (this *beanExprListener) findField(method string, v reflect.Value) reflect.Value {
+func (self *beanExprListener) findField(method string, v reflect.Value) reflect.Value {
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()
 	}
@@ -89,22 +89,22 @@ func (this *beanExprListener) findField(method string, v reflect.Value) reflect.
 	}
 	return reflect.Value{}
 }
-func (this *beanExprListener) Run() ResultSet {
-	if this.exprMap == nil {
+func (self *beanExprListener) Run() ResultSet {
+	if self.exprMap == nil {
 		panic("exprMap required")
 	}
-	switch this.execType {
+	switch self.execType {
 	case 0:
-		if f, ok := this.exprMap[this.funcName]; ok {
+		if f, ok := self.exprMap[self.funcName]; ok {
 			v := reflect.ValueOf(f)
 			if v.Kind() == reflect.Func {
-				return result(v.Call(this.args))
+				return result(v.Call(self.args))
 			}
 		}
 		break
 	case 1: // struct方法执行
-		ms := strings.Split(this.methodName, ".")
-		if obj, ok := this.exprMap[ms[0]]; ok {
+		ms := strings.Split(self.methodName, ".")
+		if obj, ok := self.exprMap[ms[0]]; ok {
 			objv := reflect.ValueOf(obj)
 			current := objv
 			for i := 1; i < len(ms); i++ {
@@ -112,10 +112,10 @@ func (this *beanExprListener) Run() ResultSet {
 					if method := current.MethodByName(ms[i]); !method.IsValid() {
 						panic("method error:" + ms[i])
 					} else {
-						return result(method.Call(this.args))
+						return result(method.Call(self.args))
 					}
 				}
-				field := this.findField(ms[i], current)
+				field := self.findField(ms[i], current)
 				if field.IsValid() {
 					current = field
 				} else {

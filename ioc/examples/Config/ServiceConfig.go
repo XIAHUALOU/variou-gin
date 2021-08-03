@@ -10,6 +10,6 @@ type ServiceConfig struct {
 func NewServiceConfig() *ServiceConfig {
 	return &ServiceConfig{}
 }
-func (this *ServiceConfig) OrderService() *services.OrderService {
+func (self *ServiceConfig) OrderService() *services.OrderService {
 	return services.NewOrderService()
 }

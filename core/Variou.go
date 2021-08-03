@@ -49,28 +49,28 @@ func Ignite(ginMiddlewares ...gin.HandlerFunc) *Variou {
 	}
 	return g
 }
-func (this *Variou) Launch() {
+func (self *Variou) Launch() {
 	var port int32 = 8080
 	if config := Injector.BeanFactory.Get((*SysConfig)(nil)); config != nil {
 		port = config.(*SysConfig).Server.Port
 	}
-	this.applyAll()
+	self.applyAll()
 	getCronTask().Start()
-	this.Run(fmt.Sprintf(":%d", port))
+	self.Run(fmt.Sprintf(":%d", port))
 }
-func (this *Variou) Handle(httpMethod, relativePath string, handler interface{}) *Variou {
+func (self *Variou) Handle(httpMethod, relativePath string, handler interface{}) *Variou {
 	if h := Convert(handler); h != nil {
 		methods := strings.Split(httpMethod, ",")
 		for _, method := range methods {
-			getInnerRouter().addRoute(method, this.getPath(relativePath), h) // for future
-			this.g.Handle(method, relativePath, h)
+			getInnerRouter().addRoute(method, self.getPath(relativePath), h) // for future
+			self.g.Handle(method, relativePath, h)
 		}
 
 	}
-	return this
+	return self
 }
-func (this *Variou) getPath(relativePath string) string {
-	g := "/" + this.currentGroup
+func (self *Variou) getPath(relativePath string) string {
+	g := "/" + self.currentGroup
 	if g == "/" {
 		g = ""
 	}
@@ -78,42 +78,42 @@ func (this *Variou) getPath(relativePath string) string {
 	g = strings.Replace(g, "//", "/", -1)
 	return g
 }
-func (this *Variou) HandleWithFairing(httpMethod, relativePath string, handler interface{}, fairings ...Fairing) *Variou {
+func (self *Variou) HandleWithFairing(httpMethod, relativePath string, handler interface{}, fairings ...Fairing) *Variou {
 	if h := Convert(handler); h != nil {
 		methods := strings.Split(httpMethod, ",")
 		for _, f := range fairings {
 			Injector.BeanFactory.Apply(f) // set IoC appyly for fairings--- add by shenyi 2020-6-17
 		}
 		for _, method := range methods {
-			getInnerRouter().addRoute(method, this.getPath(relativePath), fairings) //for future
-			this.g.Handle(method, relativePath, h)
+			getInnerRouter().addRoute(method, self.getPath(relativePath), fairings) //for future
+			self.g.Handle(method, relativePath, h)
 		}
 
 	}
-	return this
+	return self
 }
 
 // 注册中间件
-func (this *Variou) Attach(f ...Fairing) *Variou {
+func (self *Variou) Attach(f ...Fairing) *Variou {
 	for _, f1 := range f {
 		Injector.BeanFactory.Set(f1)
 	}
 	getFairingHandler().AddFairing(f...)
-	return this
+	return self
 }
 
-func (this *Variou) Beans(beans ...Bean) *Variou {
+func (self *Variou) Beans(beans ...Bean) *Variou {
 	for _, bean := range beans {
-		this.exprData[bean.Name()] = bean
+		self.exprData[bean.Name()] = bean
 		Injector.BeanFactory.Set(bean)
 	}
-	return this
+	return self
 }
-func (this *Variou) Config(cfgs ...interface{}) *Variou {
+func (self *Variou) Config(cfgs ...interface{}) *Variou {
 	Injector.BeanFactory.Config(cfgs...)
-	return this
+	return self
 }
-func (this *Variou) applyAll() {
+func (self *Variou) applyAll() {
 	for t, v := range Injector.BeanFactory.GetBeanMapper() {
 		if t.Elem().Kind() == reflect.Struct {
 			Injector.BeanFactory.Apply(v.Interface())
@@ -121,25 +121,25 @@ func (this *Variou) applyAll() {
 	}
 }
 
-func (this *Variou) Mount(group string, classes ...IClass) *Variou {
-	this.g = this.Group(group)
+func (self *Variou) Mount(group string, classes ...IClass) *Variou {
+	self.g = self.Group(group)
 	for _, class := range classes {
-		this.currentGroup = group
-		class.Build(this)
-		//this.beanFactory.inject(class)
-		this.Beans(class)
+		self.currentGroup = group
+		class.Build(self)
+		//self.beanFactory.inject(class)
+		self.Beans(class)
 	}
-	return this
+	return self
 }
 
 //0/3 * * * * *  //增加定时任务
-func (this *Variou) Task(cron string, expr interface{}) *Variou {
+func (self *Variou) Task(cron string, expr interface{}) *Variou {
 	var err error
 	if f, ok := expr.(func()); ok {
 		_, err = getCronTask().AddFunc(cron, f)
 	} else if exp, ok := expr.(Expr); ok {
 		_, err = getCronTask().AddFunc(cron, func() {
-			_, expErr := ExecExpr(exp, this.exprData)
+			_, expErr := ExecExpr(exp, self.exprData)
 			if expErr != nil {
 				log.Println(expErr)
 			}
@@ -149,5 +149,5 @@ func (this *Variou) Task(cron string, expr interface{}) *Variou {
 	if err != nil {
 		log.Println(err)
 	}
-	return this
+	return self
 }

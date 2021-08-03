@@ -13,9 +13,9 @@ type RouterConfig struct {
 func NewRouterConfig() *RouterConfig {
 	return &RouterConfig{}
 }
-func (this *RouterConfig) IndexRoutes() interface{} {
-	this.Goft.Handle("GET", "/a", this.IndexClass.TestA)
-	this.Goft.Handle("GET", "/b", this.IndexClass.TestA)
-	this.Goft.Handle("GET", "/void", this.IndexClass.IndexVoid)
+func (self *RouterConfig) IndexRoutes() interface{} {
+	self.Goft.Handle("GET", "/a", self.IndexClass.TestA)
+	self.Goft.Handle("GET", "/b", self.IndexClass.TestA)
+	self.Goft.Handle("GET", "/void", self.IndexClass.IndexVoid)
 	return core.Empty
 }
